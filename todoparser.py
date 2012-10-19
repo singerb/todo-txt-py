@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-"""README:
-
+"""
 ==============
 todo_parser.py
 ==============
