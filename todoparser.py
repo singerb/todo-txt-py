@@ -99,7 +99,10 @@ class WorkItem(object):
         self._start = start
         self._origText = text
         self._text = WorkItem.project_context_re.sub("", self._origText).strip()
-        self._projectsContexts = map(str.strip, WorkItem.project_context_re.findall(self._origText))
+        try:
+            self._projectsContexts = map(str.strip, WorkItem.project_context_re.findall(self._origText))
+        except TypeError:
+            self._projectsContexts = map(unicode.strip, WorkItem.project_context_re.findall(self._origText))
         if self._start:
             self._startDate = datetime.datetime.strptime(self._start, "%Y-%m-%d").date()
         else:
@@ -185,7 +188,7 @@ class InProgressItem(WorkItem):
     def add_to_file(self, destFile):
         """Adds itself to an existing TodoFile as an in-progress item."""
 
-        destFile.addExistingItem(self, False)
+        destFile.add_existing_item(self, False)
     
     @property
     def priority(self):
@@ -240,7 +243,7 @@ class CompleteItem(WorkItem):
     def add_to_file(self, destFile):
         """Adds itself to an existing TodoFile as a complete item."""
 
-        destFile.addExistingItem(self, True)
+        destFile.add_existing_item(self, True)
     
     @property
     def end(self):
@@ -368,7 +371,7 @@ class TodoFile(object):
             return
 
         prev_item = self._incomplete_items[line]
-        new_item = CompleteItem(line, prev_item.origText, when, prev_item.start)
+        new_item = CompleteItem(line, prev_item.orig_text, when, prev_item.start)
 
         del self._incomplete_items[line]
         self._complete_items[line] = new_item
