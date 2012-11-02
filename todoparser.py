@@ -454,7 +454,7 @@ class TodoFile(object):
                 itertools.ifilter(operator.methodcaller('startswith', starts_with),
                     set(
                         functools.reduce(operator.concat,
-                            map(operator.attrgetter('projects_contexts'), itertools.chain(self._incomplete_items.itervalues(), self._complete_items.itervalues()))))))
+                            map(operator.attrgetter('projects_contexts'), itertools.chain(self._incomplete_items.itervalues(), self._complete_items.itervalues())), []))))
 
     def __str__(self):
         ret = ""
