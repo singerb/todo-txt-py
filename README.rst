@@ -2,6 +2,8 @@
 todo_parser.py
 ==============
 
+Now developed and hosted on bitbucket: https://bitbucket.org/singerb/todo-txt-py.
+
 A module for converting files in the `todo.txt format <http://todotxt.com/>`_ to Python objects that allow
 in-memory editing operations on the representation; these objects can regenerate the contents of the file,
 allowing for round-trip editing.
